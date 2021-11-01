@@ -30,5 +30,6 @@ public class JwtTokenProvider {
 
     public String createToken(String userPk, List<String> roles){
         Claims claims = Jwts.claims().setSubject(userPk); //jwt playload에 저장되는 정보 단위
+        claims.put("roles", roles); //정보는 key / value 쌍으로 저장된다.
     }
 }
