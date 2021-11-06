@@ -24,6 +24,6 @@ public class DiaryController {
 
     @GetMapping("/list")
     public List<DiaryEntity> getAllDiary(){
-        return diaryService.
+        return diaryService.getAllDiary();
     }
 }
