@@ -6,6 +6,8 @@ import com.example.loginpractice.entity.DiaryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class DiaryService {
@@ -21,5 +23,10 @@ public class DiaryService {
                 .build();
         diaryRepository.save(diaryEntity);
         return "글쓰기 성공";
+    }
+
+    //리스트
+    public List<DiaryEntity> getAllDiary(){
+        return diaryRepository.findAll();
     }
 }
