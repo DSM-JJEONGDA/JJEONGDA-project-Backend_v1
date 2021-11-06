@@ -6,6 +6,7 @@ import com.example.loginpractice.entity.DiaryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -28,5 +29,16 @@ public class DiaryService {
     //리스트
     public List<DiaryEntity> getAllDiary(){
         return diaryRepository.findAll();
+    }
+    
+    @Transactional
+    public String update(Long diaryPk, DiaryRequest request){
+
+        DiaryEntity diaryEntity = diaryRepository.findById(diaryPk).get();
+        diaryEntity.setTitle(request.getTitle());
+        diaryEntity.setWeather(request.getWeather());
+        diaryEntity.setContents(request.getContents());
+
+        return "수정 성공";
     }
 }
