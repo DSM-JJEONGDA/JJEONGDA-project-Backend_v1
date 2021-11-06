@@ -1,17 +1,14 @@
 package com.example.loginpractice.controller;
 
-import com.example.loginpractice.config.JwtTokenProvider;
+import com.example.loginpractice.jwt.JwtTokenProvider;
 import com.example.loginpractice.entity.User;
 import com.example.loginpractice.entity.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.PostConstruct;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Map;
 
@@ -33,6 +30,7 @@ public class UserController {
                 .build()).getId();
     }
 
+    //로그인
     @PostMapping("/login")
     public String login(@RequestBody Map<String, String> user) {
         User member = userRepository.findByEmail(user.get("email"))
