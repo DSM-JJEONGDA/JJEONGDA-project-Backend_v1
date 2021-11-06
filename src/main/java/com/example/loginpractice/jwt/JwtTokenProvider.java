@@ -1,4 +1,4 @@
-package com.example.loginpractice.config;
+package com.example.loginpractice.jwt;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
