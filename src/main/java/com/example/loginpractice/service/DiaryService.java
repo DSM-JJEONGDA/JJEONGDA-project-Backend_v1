@@ -30,7 +30,8 @@ public class DiaryService {
     public List<DiaryEntity> getAllDiary(){
         return diaryRepository.findAll();
     }
-    
+
+    //수정
     @Transactional
     public String update(Long diaryPk, DiaryRequest request){
 
@@ -40,5 +41,11 @@ public class DiaryService {
         diaryEntity.setContents(request.getContents());
 
         return "수정 성공";
+    }
+
+    //삭제
+    @Transactional
+    public void delete(Long diaryPk){
+        diaryRepository.deleteById(diaryPk);
     }
 }
