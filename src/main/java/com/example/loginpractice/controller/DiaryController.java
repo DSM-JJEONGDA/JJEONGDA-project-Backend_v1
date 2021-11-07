@@ -26,8 +26,15 @@ public class DiaryController {
         return diaryService.getAllDiary();
     }
 
+    //수정
     @PatchMapping("/update/{diaryPk}")
     public String update(@PathVariable Long diaryPk, @RequestBody DiaryRequest request) {
         return diaryService.update(diaryPk, request);
+    }
+
+    //삭제
+    @DeleteMapping("/delete/{diaryPk}")
+    public void delete(@PathVariable Long diaryPk){
+        diaryService.delete(diaryPk);
     }
 }
