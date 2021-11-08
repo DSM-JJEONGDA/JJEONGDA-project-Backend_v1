@@ -19,7 +19,7 @@ public class DiaryEntity {
     @Column(nullable = false, length = 20)
     private String title;
 
-    @Column(nullable = false, length = 12)
+    @Column(nullable = false, length = 20)
     private String weather;
 
     @Column(nullable = false, length = 200)
