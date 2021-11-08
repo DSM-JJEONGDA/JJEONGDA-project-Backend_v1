@@ -3,6 +3,8 @@ package com.example.loginpractice.controller;
 import com.example.loginpractice.jwt.JwtTokenProvider;
 import com.example.loginpractice.entity.User;
 import com.example.loginpractice.entity.UserRepository;
+import com.example.loginpractice.payload.RegisterRequest;
+import com.example.loginpractice.service.RegisterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,6 +21,7 @@ public class UserController {
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
     private final UserRepository userRepository;
+    private final RegisterService registerService;
 
     // 회원가입
    /* @PostMapping("/join")
@@ -29,10 +32,13 @@ public class UserController {
                 .roles(Collections.singletonList("ROLE_USER")) // 최초 가입시 USER 로 설정
                 .build()).getId();
     }*/
+
+    //회원가입
     @PostMapping("/register")
-    public String register(@RequestBody ){
-        return "";
+    public String register(@RequestBody RegisterRequest request){
+        return registerService.register(request);
     }
+
     //로그인
     @PostMapping("/login")
     public String login(@RequestBody Map<String, String> user) {
