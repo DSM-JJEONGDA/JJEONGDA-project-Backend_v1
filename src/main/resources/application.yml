@@ -1,27 +1,16 @@
-server:
-  servlet:
-    encoding:
-      charset: utf-8
-      enabled: true
-      force: true
-  port: 8088
+server.address=localhost
+server.port=8080
 
-spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: root
-    password: rhqmffls13!
-    url: jdbc:mysql://localhost:3306/auth?serverTimezone=UTC&characterEncoding=UTF-8
+spring.jpa.generate-ddl=true
+spring.jpa.hibernate.ddl-auto=create-drop
 
-  jpa:
-    hibernate:
-      ddl-auto: create
-      naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
-    show-sql: true
+spring.jpa.database=mysql
 
-my:
-  secret: dlwjddbsdlwjddbsdlwjddbs
+spring.datasource.url=jdbc:mysql://localhost:3306/auth?serverTimezone=UTC&characterEncoding=UTF-8
+spring.datasource.username= root
+spring.datasource.password= rhqmffls13!
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
 
+spring.jpa.database-platform=org.hibernate.dialect.MySQL5InnoDBDialect
 
 
