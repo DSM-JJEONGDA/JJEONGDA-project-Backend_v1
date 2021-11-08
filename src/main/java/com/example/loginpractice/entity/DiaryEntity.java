@@ -22,6 +22,6 @@ public class DiaryEntity {
     @Column(nullable = false, length = 12)
     private String weather;
 
-    @Column(nullable = false, length = 500)
+    @Column(nullable = false, length = 200)
     private String contents;
 }
