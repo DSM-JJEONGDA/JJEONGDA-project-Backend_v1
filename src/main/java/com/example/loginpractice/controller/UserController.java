@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.util.Collections;
 import java.util.Map;
 
 @RequiredArgsConstructor
@@ -23,16 +22,6 @@ public class UserController {
     private final JwtTokenProvider jwtTokenProvider;
     private final UserRepository userRepository;
     private final RegisterService registerService;
-
-    // 회원가입
-   /* @PostMapping("/join")
-    public Long join(@RequestBody Map<String, String> user){
-        return userRepository.save(User.builder()
-                .email(user.get("email"))
-                .password(passwordEncoder.encode(user.get("password")))
-                .roles(Collections.singletonList("ROLE_USER")) // 최초 가입시 USER 로 설정
-                .build()).getId();
-    }*/
 
     //회원가입
     @PostMapping("/register")
