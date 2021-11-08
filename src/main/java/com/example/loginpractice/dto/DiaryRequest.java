@@ -16,6 +16,6 @@ public class DiaryRequest {
     @Size(min = 1, max = 12, message = "날씨는 1자 이상 12자 이하로 입력해주세요")
     private String weather;
 
-    @Size(min = 1, max = 500, message = "내용은 1자 이상 500자 이하로 입력해주세요")
+    @Size(min = 1, max = 200, message = "내용은 1자 이상 200자 이하로 입력해주세요")
     private String contents;
 }
