@@ -21,15 +21,18 @@ public class UserController {
     private final UserRepository userRepository;
 
     // 회원가입
-    @PostMapping("/join")
+   /* @PostMapping("/join")
     public Long join(@RequestBody Map<String, String> user){
         return userRepository.save(User.builder()
                 .email(user.get("email"))
                 .password(passwordEncoder.encode(user.get("password")))
                 .roles(Collections.singletonList("ROLE_USER")) // 최초 가입시 USER 로 설정
                 .build()).getId();
+    }*/
+    @PostMapping("/register")
+    public String register(@RequestBody ){
+        return "";
     }
-
     //로그인
     @PostMapping("/login")
     public String login(@RequestBody Map<String, String> user) {
