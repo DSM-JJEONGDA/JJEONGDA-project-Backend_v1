@@ -22,8 +22,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class JwtTokenProvider {
 
-    @Value("${jwt.secret}")
-    private String secretKey;
+    private String secretKey = "dlwjddbsdlwjddbs";
 
     //토큰 유효기간 30분
     private long tokenValidTime = 30 * 60 * 1000L;
