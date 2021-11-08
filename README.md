@@ -1,2 +1,2 @@
-# LoginPractice
-jwt 사용하여 로그인하는 연습 
+# JJEONGDA-project-Backend_v1
+JJEONGDA-project-Backend_v1
