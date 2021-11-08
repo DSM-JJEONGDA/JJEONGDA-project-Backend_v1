@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.Collections;
 import java.util.Map;
 
@@ -35,7 +36,7 @@ public class UserController {
 
     //회원가입
     @PostMapping("/register")
-    public String register(@RequestBody RegisterRequest request){
+    public String register(@RequestBody @Valid RegisterRequest request){
         return registerService.register(request);
     }
 
