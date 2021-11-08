@@ -16,7 +16,7 @@ public class DiaryController {
 
     //글쓰기
     @PostMapping("/write")
-    public String create(DiaryRequest request){
+    public String create(@RequestBody DiaryRequest request){
         return diaryService.create(request);
     }
 
