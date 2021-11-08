@@ -30,8 +30,6 @@ public class User implements UserDetails {
     @Column(length = 300, nullable = false)
     private String password;
 
-    //관리자 권한
-    //필요없는 기능
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
     private List<String> roles = new ArrayList<>();
