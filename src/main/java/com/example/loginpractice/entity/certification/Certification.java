@@ -3,28 +3,37 @@ package com.example.loginpractice.entity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 import org.springframework.data.redis.core.TimeToLive;
+import org.springframework.data.redis.core.index.Indexed;
+
+import java.io.Serializable;
+import java.security.cert.Certificate;
 
 
 @RedisHash
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @Getter
-public class RedisCode {
+public class Certification implements Serializable {
 
-    @Id
+    @Id @Indexed
     private String email;
 
     private String code;
 
-    @TimeToLive
-    private Integer ttl;
+    private Certificate certificate;
 
-    public RedisCode changeCode(String code, Integer ttl){
+    private String refreshToken;
+
+    @TimeToLive
+    private Integer codeExp;
+
+    public Certification updateCode(String code){
         this.code = code;
-        this.ttl = ttl;
         return this;
     }
 }

@@ -30,6 +30,8 @@ public class User implements UserDetails {
     @Column(length = 200, nullable = false)
     private String password;
 
+    private String token;
+
     @ElementCollection(fetch = FetchType.EAGER)
     @Builder.Default
     private List<String> roles = new ArrayList<>();
