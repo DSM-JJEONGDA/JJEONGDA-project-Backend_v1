@@ -1,7 +1,7 @@
 package com.example.loginpractice.controller;
 
-import com.example.loginpractice.payload.CodeRequest;
-import com.example.loginpractice.payload.EmailRequest;
+import com.example.loginpractice.payload.request.CodeRequest;
+import com.example.loginpractice.payload.request.EmailRequest;
 import com.example.loginpractice.service.SendEmailService;
 import com.example.loginpractice.service.VerifyCodeService;
 import lombok.RequiredArgsConstructor;
