@@ -3,7 +3,7 @@ package com.example.loginpractice.service;
 import com.example.loginpractice.entity.User;
 import com.example.loginpractice.entity.UserRepository;
 import com.example.loginpractice.exception.AlreadyUserExistException;
-import com.example.loginpractice.payload.RegisterRequest;
+import com.example.loginpractice.payload.request.RegisterRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
