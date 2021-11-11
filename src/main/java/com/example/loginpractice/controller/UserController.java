@@ -3,7 +3,7 @@ package com.example.loginpractice.controller;
 import com.example.loginpractice.entity.User;
 import com.example.loginpractice.jwt.JwtTokenProvider;
 import com.example.loginpractice.entity.UserRepository;
-import com.example.loginpractice.payload.RegisterRequest;
+import com.example.loginpractice.payload.request.RegisterRequest;
 import com.example.loginpractice.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
