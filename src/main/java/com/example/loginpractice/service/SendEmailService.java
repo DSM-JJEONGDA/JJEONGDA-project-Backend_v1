@@ -3,7 +3,7 @@ package com.example.loginpractice.service;
 import com.example.loginpractice.entity.RedisCode;
 import com.example.loginpractice.entity.RedisRepository;
 import com.example.loginpractice.exception.SendMailFailedException;
-import com.example.loginpractice.payload.EmailRequest;
+import com.example.loginpractice.payload.request.EmailRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Async;
