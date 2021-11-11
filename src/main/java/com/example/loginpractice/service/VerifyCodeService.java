@@ -4,7 +4,7 @@ import com.example.loginpractice.entity.RedisCode;
 import com.example.loginpractice.entity.RedisRepository;
 import com.example.loginpractice.exception.CodeNotCorrectException;
 import com.example.loginpractice.exception.EmailNotCorrectException;
-import com.example.loginpractice.payload.CodeRequest;
+import com.example.loginpractice.payload.request.CodeRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
