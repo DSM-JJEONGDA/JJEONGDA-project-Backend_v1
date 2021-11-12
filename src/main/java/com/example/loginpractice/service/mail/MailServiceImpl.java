@@ -1,11 +1,12 @@
-package com.example.loginpractice.service;
+package com.example.loginpractice.service.mail;
 
-import com.example.loginpractice.entity.Certification;
-import com.example.loginpractice.entity.CertificationRepository;
-import com.example.loginpractice.exception.SendMailFailedException;
+import com.example.loginpractice.entity.certification.Certification;
+import com.example.loginpractice.entity.certification.CertificationRepository;
+import com.example.loginpractice.entity.certification.Certified;
+import com.example.loginpractice.exception.SendMessageFailedException;
 import lombok.RequiredArgsConstructor;
-import lombok.Value;
-import net.bytebuddy.utility.RandomString;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +17,7 @@ import javax.transaction.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class MailServiceImpl implements MailService{
+public class MailServiceImpl implements MailService {
 
     @Value("${code.exp}")
     private Integer CODE_EXP;
@@ -31,19 +32,21 @@ public class MailServiceImpl implements MailService{
 
         try {
             String code = getCode(createKey());
-            message.setFrom("sdpthf@gmail.com");
-            message.addRecipients(Message.RecipientType.TO,email);
+            message.setFrom("leejeongyoon0411@gmail.com");
+            message.addRecipients(Message.RecipientType.TO, email);
             message.setSubject("[Test 이메일 인증]");
             message.setText(code);
+            javaMailSender.send(message);
+            return code;
         } catch (MessagingException e) {
             e.getStackTrace();
-            throw new SendMailFailedException();
+            throw new SendMessageFailedException();
         }
 
     }
 
-    @Transactional
     @Override
+    @Transactional
     public void sendEmail(String email){
         redisRepository.findByEmail(email)
                 .map(redisCode -> redisRepository.save(redisCode.updateCode(sendCode(email))))
@@ -51,13 +54,13 @@ public class MailServiceImpl implements MailService{
                                 .code(sendCode(email))
                                 .email(email)
                                 .codeExp(CODE_EXP)
-                                .certificate(Certified.NOT_CERTIFIED)
+                                .certified(Certified.NOT_CERTIFIED)
                                 .build())
                 );
     }
 
     public String createKey(){
-        return RandomStringUtils.randomNumberic(6);
+        return RandomStringUtils.randomNumeric(6);
     }
 
     public String getCode(String key){
