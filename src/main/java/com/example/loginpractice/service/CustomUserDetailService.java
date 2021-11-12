@@ -1,6 +1,6 @@
 package com.example.loginpractice.service;
 
-import com.example.loginpractice.entity.UserRepository;
+import com.example.loginpractice.entity.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
