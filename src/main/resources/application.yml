@@ -17,8 +17,6 @@ spring:
     hibernate:
       generate-ddl: true
       ddl-auto: update
-      naming:
-        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     show-sql: true
 
   mail:
@@ -28,18 +26,23 @@ spring:
     password: ${MAIL_PASSWORD}
     properties:
       mail:
-         smtp:
-          auth: true
-          starttls:
-              enable: true
-            ssl:
-              trust: smtp.gmail.com
-              protocols: TLSv1.2
-
-code:
-  exp: ${EXP}
+        smtp:
+        auth: true
+        starttls:
+          enable: true
+        ssl:
+          trust: smtp.gmail.com
+          protocols: TLSv1.2
 
   redis:
     host: ${REDIS_HOST}
     port: ${REDIS_PORT}
+
+code:
+  exp: ${EXP}
+
+logging:
+  level:
+    "[org.hibernate]": ERROR
+
 
