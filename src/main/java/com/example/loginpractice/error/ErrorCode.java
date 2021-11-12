@@ -1,4 +1,4 @@
-package com.example.loginpractice.security;
+package com.example.loginpractice.error;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -6,11 +6,16 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 public enum ErrorCode {
-    EMAIL_NOT_CORRECT(400, "Email Not Correct"),
-    CODE_NOT_CORRECT(400, "Code Not Correct"),
-    SEND_FAILED_MAIL(500, "Send Message Failed"),
-    ;
 
-    private final int statusCode;
+    MEMBER_NAME_ALREADY_EXISTS(409, "Member Name Already Exists"),
+    MEMBER_EMAIL_ALREADY_EXISTS(409, "Member Email Already Exists"),
+
+    EMAIL_NOT_CERTIFIED(401, "Email Not Certified"),
+    SEND_MESSAGE_FAILED(500, "Send Message Failed"),
+
+    CODE_NOT_CORRECT(401, "Code Not Correct"),
+    CODE_ALREADY_EXPIRED(401, "Code Already Expired");
+
+    private final int status;
     private final String message;
 }
