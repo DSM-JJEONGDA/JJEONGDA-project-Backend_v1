@@ -1,10 +1,11 @@
 package com.example.loginpractice.controller;
 
-import com.example.loginpractice.entity.User;
-import com.example.loginpractice.jwt.JwtTokenProvider;
-import com.example.loginpractice.entity.UserRepository;
+import com.example.loginpractice.entity.*;
+import com.example.loginpractice.entity.user.User;
+import com.example.loginpractice.entity.user.UserRepository;
+import com.example.loginpractice.security.jwt.JwtTokenProvider;
 import com.example.loginpractice.payload.request.RegisterRequest;
-import com.example.loginpractice.service.AuthService;
+import com.example.loginpractice.service.auth.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -24,11 +25,13 @@ public class UserController {
     private final JwtTokenProvider jwtTokenProvider;
     private final UserRepository userRepository;
     private final AuthService registerService;
+    private final RefreshTokenRepository refreshTokenRepository;
 
     //회원가입
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
-    public String register(@RequestBody @Valid RegisterRequest request) {
+    public String register(@RequestBody @Valid RegisterRequest request)
+    {
         return registerService.register(request);
     }
 
@@ -40,6 +43,6 @@ public class UserController {
         if (!passwordEncoder.matches(user.get("password"), member.getPassword())) {
             throw new IllegalArgumentException("잘못된 비밀번호입니다.");
         }
-        return jwtTokenProvider.createToken(member.getUsername(), member.getRoles());
+        return jwtTokenProvider.createJwtAccessToken(member.getUsername(), member.getRoles());
     }
 }
