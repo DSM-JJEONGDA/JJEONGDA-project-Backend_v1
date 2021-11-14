@@ -26,7 +26,7 @@ public class UserController {
     private final AuthService authService;
     private final RefreshTokenRepository refreshTokenRepository;
 
-    @PostMapping("/sendEmail")
+    @PostMapping("/send")
     public void sendEmail(@Valid @RequestBody EmailRequest request){
         authService.sendEmail(request);
     }
