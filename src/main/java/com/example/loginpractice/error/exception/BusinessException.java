@@ -1,4 +1,4 @@
-package com.example.loginpractice.exception;
+package com.example.loginpractice.error.exception;
 
 import com.example.loginpractice.error.ErrorCode;
 import lombok.Getter;

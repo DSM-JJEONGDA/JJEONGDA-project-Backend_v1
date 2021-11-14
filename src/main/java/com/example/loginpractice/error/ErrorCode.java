@@ -7,6 +7,14 @@ import lombok.Getter;
 @Getter
 public enum ErrorCode {
 
+    //토큰
+    INCORRECT_TOKEN(400, "Incorrect Token"),
+    INVALID_TOKEN(401, "Invalid Token"),
+    EXPIRED_ACCESS_TOKEN(401, "Expired Access Token"),
+    EXPIRED_REFRESH_TOKEN(401, "Expired Refresh Token"),
+    REFRESH_TOKEN_NOT_FOUND(404, "Refresh Token Not Found"),
+
+    //회원
     MEMBER_NAME_ALREADY_EXISTS(409, "Member Name Already Exists"),
     MEMBER_EMAIL_ALREADY_EXISTS(409, "Member Email Already Exists"),
 

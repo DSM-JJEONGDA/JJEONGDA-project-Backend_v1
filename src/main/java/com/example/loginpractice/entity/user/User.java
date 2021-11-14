@@ -1,4 +1,4 @@
-package com.example.loginpractice.entity;
+package com.example.loginpractice.entity.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,7 +22,10 @@ import java.util.stream.Collectors;
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
+
+    @Column(unique = true, nullable = false)
+    private String name;
 
     @Column(length = 100, nullable = false, unique = true)
     private String email;

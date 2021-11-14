@@ -1,6 +1,6 @@
 package com.example.loginpractice.controller;
 
-import com.example.loginpractice.entity.*;
+import com.example.loginpractice.entity.refreshToken.RefreshTokenRepository;
 import com.example.loginpractice.entity.user.User;
 import com.example.loginpractice.entity.user.UserRepository;
 import com.example.loginpractice.security.jwt.JwtTokenProvider;
@@ -43,6 +43,6 @@ public class UserController {
         if (!passwordEncoder.matches(user.get("password"), member.getPassword())) {
             throw new IllegalArgumentException("잘못된 비밀번호입니다.");
         }
-        return jwtTokenProvider.createJwtAccessToken(member.getUsername(), member.getRoles());
+        return jwtTokenProvider.createJwtAccessToken(member.getUsername());
     }
 }

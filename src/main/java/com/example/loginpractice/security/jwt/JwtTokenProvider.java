@@ -1,9 +1,9 @@
-package com.example.loginpractice.jwt;
+package com.example.loginpractice.security.jwt;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import com.example.loginpractice.exception.ExpiredRefreshTokenException;
+import com.example.loginpractice.exception.IncorrectTokenException;
+import com.example.loginpractice.exception.InvalidTokenException;
+import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -25,8 +25,9 @@ public class JwtTokenProvider {
     @Value("${jwt.secret}")
     private String secretKey;
 
-    //토큰 유효기간 30분
-    private long tokenValidTime = 30 * 60 * 1000L;
+    //토큰 유효기간
+    private long ACCESS_TOKEN_VALID_TIME = 30 * 60 * 1000L; //30분
+    private long REFRESH_TOKEN_VALID_TIME = 60 * 60 * 24 * 7 * 1000L; //1주
 
     private final UserDetailsService userDetailsService;
 
@@ -36,17 +37,27 @@ public class JwtTokenProvider {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
-    public String createToken(String userPk, List<String> roles){
-        Claims claims = Jwts.claims().setSubject(userPk);
-        claims.put("roles", roles);
-        Date now = new Date();
+    public String createJwtAccessToken(String username) {
         return Jwts.builder()
-                .setClaims(claims)
-                .setIssuedAt(now)
-                .setExpiration(new Date(now.getTime() + tokenValidTime))
-                .signWith(SignatureAlgorithm.HS512, secretKey)
+                .setHeaderParam("typ", "jwt")
+                .setSubject(username)
+                .claim("type", "access")
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + ACCESS_TOKEN_VALID_TIME))
+                .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
-        }
+    }
+
+    public String createJwtRefreshToken(String username){
+        return Jwts.builder()
+                .setHeaderParam("typ", "jwt")
+                .setSubject(username)
+                .claim("type", "refresh")
+                .setIssuedAt(new Date())
+                .setExpiration(new Date(System.currentTimeMillis() + REFRESH_TOKEN_VALID_TIME))
+                .signWith(SignatureAlgorithm.HS256, secretKey)
+                .compact();
+    }
     // JWT 토큰 에서 인증 정보 조회
     public Authentication getAuthentication(String token){
         UserDetails userDetails = userDetailsService.loadUserByUsername(this.getUserPk(token));
@@ -69,6 +80,22 @@ public class JwtTokenProvider {
             return !claims.getBody().getExpiration().before(new Date());
         } catch (Exception e) {
             return false;
+        }
+    }
+
+    public boolean isRefreshToken(String refreshToken) {
+        try {
+            Claims claims = Jwts.parser()
+                    .setSigningKey(secretKey)
+                    .parseClaimsJws(refreshToken)
+                    .getBody();
+            return claims.get("type").equals("refresh") && claims.getExpiration().before(new Date());
+        } catch (MalformedJwtException | UnsupportedJwtException e) {
+            throw new IncorrectTokenException();
+        } catch (ExpiredJwtException e) {
+            throw new ExpiredRefreshTokenException();
+        } catch (Exception e) {
+            throw new InvalidTokenException();
         }
     }
 }

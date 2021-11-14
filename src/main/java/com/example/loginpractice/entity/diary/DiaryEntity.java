@@ -1,4 +1,4 @@
-package com.example.loginpractice.entity;
+package com.example.loginpractice.entity.diary;
 
 import lombok.*;
 

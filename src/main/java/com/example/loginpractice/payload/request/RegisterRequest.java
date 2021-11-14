@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 @Getter
@@ -12,9 +13,14 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 public class RegisterRequest {
 
+    @NotBlank
+    private String name;
+
     @Email
+    @NotBlank
     private String email;
 
+    @NotBlank
     @Size(min = 8, max = 16, message = "비밀번호는 최소 8글자 이상 최대 16글자 이하여야 합니다.")
     private String password;
 }

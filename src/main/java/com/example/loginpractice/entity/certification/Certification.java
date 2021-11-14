@@ -1,4 +1,4 @@
-package com.example.loginpractice.entity;
+package com.example.loginpractice.entity.certification;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,12 +25,17 @@ public class Certification implements Serializable {
 
     private String code;
 
-    private Certificate certificate;
+    private Certified certified;
 
     private String refreshToken;
 
     @TimeToLive
     private Integer codeExp;
+
+    public Certification updateCertified(Certified certified){
+        this.certified = certified;
+        return this;
+    }
 
     public Certification updateCode(String code){
         this.code = code;
