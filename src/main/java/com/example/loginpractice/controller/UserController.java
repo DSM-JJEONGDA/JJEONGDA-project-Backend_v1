@@ -3,16 +3,15 @@ package com.example.loginpractice.controller;
 import com.example.loginpractice.entity.refreshToken.RefreshTokenRepository;
 import com.example.loginpractice.entity.user.User;
 import com.example.loginpractice.entity.user.UserRepository;
+import com.example.loginpractice.payload.request.EmailRequest;
+import com.example.loginpractice.payload.request.EmailVerifiedRequest;
 import com.example.loginpractice.security.jwt.JwtTokenProvider;
 import com.example.loginpractice.payload.request.RegisterRequest;
 import com.example.loginpractice.service.auth.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.Map;
@@ -24,15 +23,24 @@ public class UserController {
     private final PasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
     private final UserRepository userRepository;
-    private final AuthService registerService;
+    private final AuthService authService;
     private final RefreshTokenRepository refreshTokenRepository;
+
+    @PostMapping("/sendEmail")
+    public void sendEmail(@Valid @RequestBody EmailRequest request){
+        authService.sendEmail(request);
+    }
+
+    @PostMapping("/email")
+    public void verifyAccount(@Valid @RequestBody EmailVerifiedRequest request){
+        authService.verifyAccount(request);
+    }
 
     //회원가입
     @PostMapping("/register")
     @ResponseStatus(HttpStatus.CREATED)
-    public String register(@RequestBody @Valid RegisterRequest request)
-    {
-        return registerService.register(request);
+    public void register(@RequestBody @Valid RegisterRequest request) {
+        authService.register(request);
     }
 
     //로그인
