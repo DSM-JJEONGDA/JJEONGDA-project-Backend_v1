@@ -27,12 +27,12 @@ spring:
     properties:
       mail:
         smtp:
-        auth: true
-        starttls:
-          enable: true
-        ssl:
-          trust: smtp.gmail.com
-          protocols: TLSv1.2
+          auth: true
+          starttls:
+            enable: true
+          ssl:
+            trust: smtp.gmail.com
+            protocols: TLSv1.2
 
   redis:
     host: ${REDIS_HOST}
@@ -41,8 +41,5 @@ spring:
 code:
   exp: ${EXP}
 
-logging:
-  level:
-    "[org.hibernate]": ERROR
 
 
