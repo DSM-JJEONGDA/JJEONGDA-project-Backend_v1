@@ -1,9 +1,10 @@
 package com.example.loginpractice.config;
 
-import com.example.loginpractice.security.jwt.JwtAuthenticationFilter;
+import com.example.loginpractice.security.jwt.JwtTokenFilter;
 import com.example.loginpractice.security.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -38,15 +39,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) //토큰기반 인증이므로 세션 역시 사용하지 않음.
                 .and()
                 .authorizeRequests() //요청에 대한 사용권한 체크
-                //.antMatchers("/admin/**").hasRole("ADMIN") //인증요구
-                //.antMatchers("/user/**").hasRole("USER") //인증요구
-                .antMatchers("/write").authenticated()
-                .antMatchers("/update/**").authenticated()
-                .antMatchers("/list").authenticated()
-                .antMatchers("/delete/**").authenticated()
-                .antMatchers("/**").permitAll() //그 외 나머지 요청은 누구나 접근 가능
+                .antMatchers("/swagger-ui.html","swagger-ui/**").permitAll()
+
+                .antMatchers("/register").permitAll()
+                .antMatchers( "login").permitAll()
+                .antMatchers("/reissue").permitAll()
+/*
+                .antMatchers("/write").permitAll()
+                .antMatchers("/update/{userPk}").permitAll()
+                .antMatchers("/list").permitAll()
+                .antMatchers("/delete{uerPk}").permitAll()*/
+                .anyRequest().authenticated()
+
+                //.antMatchers("/**").permitAll() //그 외 나머지 요청은 누구나 접근 가능
                 .and()
-                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider),
+                .addFilterBefore(new JwtTokenFilter(jwtTokenProvider),
                         UsernamePasswordAuthenticationFilter.class);
                 //JwtAuthenticationFilter를 UsernamePasswordAuthenticationFilter 전에 넣는다
     }
