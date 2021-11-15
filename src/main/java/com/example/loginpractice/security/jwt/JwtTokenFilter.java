@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @RequiredArgsConstructor
-public class JwtFilter extends OncePerRequestFilter {
+public class JwtTokenFilter extends OncePerRequestFilter {
 
     private final JwtTokenProvider jwtTokenProvider;
 
@@ -22,6 +22,10 @@ public class JwtFilter extends OncePerRequestFilter {
                                     FilterChain chain) throws IOException, ServletException {
         // 헤더에서 JWT를 받아옵니다.
         String token = jwtTokenProvider.resolveToken(request);
+
+        System.out.println(request.getRequestURI());
+        System.out.println(request.getMethod());
+
         //유효한 토큰인지 확인합니다.
         if(token != null && jwtTokenProvider.validateToken(token)){
             // 토큰이 유효하면 토큰으로 부터 유저 정보를 받아옵니다.
