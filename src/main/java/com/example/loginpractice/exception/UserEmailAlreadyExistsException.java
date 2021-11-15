@@ -5,6 +5,6 @@ import com.example.loginpractice.error.exception.BusinessException;
 
 public class UserEmailAlreadyExistsException extends BusinessException {
     public UserEmailAlreadyExistsException(){
-        super(ErrorCode.MEMBER_EMAIL_ALREADY_EXISTS);
+        super(ErrorCode.USER_EMAIL_ALREADY_EXISTS);
     }
 }
