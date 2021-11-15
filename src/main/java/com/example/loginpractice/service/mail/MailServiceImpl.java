@@ -23,7 +23,7 @@ public class MailServiceImpl implements MailService {
     private Integer CODE_EXP;
 
     private final JavaMailSender javaMailSender;
-    private final CertificationRepository redisRepository;
+    private final CertificationRepository certificationRepository;
 
     @Transactional
     public String sendCode(String email) {
@@ -48,9 +48,9 @@ public class MailServiceImpl implements MailService {
     @Override
     @Transactional
     public void sendEmail(String email){
-        redisRepository.findByEmail(email)
-                .map(redisCode -> redisRepository.save(redisCode.updateCode(sendCode(email))))
-                .orElseGet(() -> redisRepository.save(Certification.builder()
+        certificationRepository.findByEmail(email)
+                .map(redisCode -> certificationRepository.save(redisCode.updateCode(sendCode(email))))
+                .orElseGet(() -> certificationRepository.save(Certification.builder()
                                 .code(sendCode(email))
                                 .email(email)
                                 .codeExp(CODE_EXP)
