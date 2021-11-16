@@ -1,6 +1,6 @@
 package com.example.loginpractice.service.diary;
 
-import com.example.loginpractice.dto.DiaryRequest;
+import com.example.loginpractice.payload.request.DiaryRequest;
 import com.example.loginpractice.entity.diary.DiaryEntity;
 import com.example.loginpractice.entity.diary.DiaryRepository;
 import lombok.RequiredArgsConstructor;
