@@ -2,7 +2,7 @@ package com.example.loginpractice.controller;
 
 import com.example.loginpractice.dto.DiaryRequest;
 import com.example.loginpractice.entity.diary.DiaryEntity;
-import com.example.loginpractice.service.DiaryService;
+import com.example.loginpractice.service.diary.DiaryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
