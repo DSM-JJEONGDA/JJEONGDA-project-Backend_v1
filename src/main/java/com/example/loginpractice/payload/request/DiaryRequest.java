@@ -1,4 +1,4 @@
-package com.example.loginpractice.dto;
+package com.example.loginpractice.payload.request;
 
 import lombok.*;
 
