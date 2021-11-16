@@ -1,4 +1,4 @@
-package com.example.loginpractice.service;
+package com.example.loginpractice.service.diary;
 
 import com.example.loginpractice.dto.DiaryRequest;
 import com.example.loginpractice.entity.diary.DiaryEntity;
