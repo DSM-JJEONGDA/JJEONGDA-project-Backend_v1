@@ -16,7 +16,7 @@ spring:
   jpa:
     hibernate:
       generate-ddl: true
-      ddl-auto: update
+      ddl-auto: create-drop
     show-sql: true
 
   mail:
