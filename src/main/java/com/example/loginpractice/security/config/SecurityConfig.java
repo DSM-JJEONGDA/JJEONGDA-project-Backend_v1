@@ -40,6 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 //rest api 만을 고려하여 기본설정은 해제 하겠습니다.
+                .httpBasic().disable()
                 .csrf().disable() //csrf 보안 토큰 disable 처리.
                 .formLogin().disable()
 
@@ -48,10 +49,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .and()
                 .authorizeRequests() //요청에 대한 사용권한 체크
-                .antMatchers("/swagger-ui.html","swagger-ui/**").permitAll()
 
+                .antMatchers("/send").permitAll()
+                .antMatchers("/email").permitAll()
                 .antMatchers("/register").permitAll()
-                .antMatchers( "login").permitAll()
+                .antMatchers("/login").permitAll()
                 .antMatchers("/reissue").permitAll()
 /*
                 .antMatchers("/write").permitAll()
