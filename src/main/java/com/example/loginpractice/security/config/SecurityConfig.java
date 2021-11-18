@@ -55,12 +55,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/register").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/reissue").permitAll()
-/*
-                .antMatchers("/write").permitAll()
-                .antMatchers("/update/{userPk}").permitAll()
-                .antMatchers("/list").permitAll()
-                .antMatchers("/delete{uerPk}").permitAll()*/
-                .anyRequest().authenticated()
+
+                .antMatchers("/write").authenticated()
+                .antMatchers("/update/{userPk}").authenticated()
+                .antMatchers("/list").authenticated()
+                .antMatchers("/delete{uerPk}").authenticated()
+                //.anyRequest().authenticated()
 
                 //.antMatchers("/**").permitAll() //그 외 나머지 요청은 누구나 접근 가능
                 .and()
