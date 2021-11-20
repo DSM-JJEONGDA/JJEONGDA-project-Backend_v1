@@ -40,7 +40,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 //rest api 만을 고려하여 기본설정은 해제 하겠습니다.
-                .httpBasic().disable()
                 .csrf().disable() //csrf 보안 토큰 disable 처리.
                 .formLogin().disable()
 
@@ -55,12 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/register").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/reissue").permitAll()
-
-                .antMatchers("/write").authenticated()
-                .antMatchers("/update/{userPk}").authenticated()
-                .antMatchers("/list").authenticated()
-                .antMatchers("/delete{uerPk}").authenticated()
-                //.anyRequest().authenticated()
+                .anyRequest().authenticated()
 
                 //.antMatchers("/**").permitAll() //그 외 나머지 요청은 누구나 접근 가능
                 .and()
