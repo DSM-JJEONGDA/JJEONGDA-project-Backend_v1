@@ -1,6 +1,7 @@
-package com.example.loginpractice.service;
+package com.example.loginpractice.security.auth;
 
 import com.example.loginpractice.entity.user.UserRepository;
+import com.example.loginpractice.exception.UserNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,8 +15,9 @@ public class CustomUserDetailService implements UserDetailsService {
     private final UserRepository userRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByEmail(username)
-                .orElseThrow(() -> new UsernameNotFoundException("사용자를 찾을 수 없습니다."));
+    public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
+        return userRepository.findByName(name)
+                .orElseThrow(UserNotFoundException::new);
+
     }
 }
