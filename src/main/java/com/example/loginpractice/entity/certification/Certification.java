@@ -10,8 +10,6 @@ import org.springframework.data.redis.core.TimeToLive;
 import org.springframework.data.redis.core.index.Indexed;
 
 import java.io.Serializable;
-import java.security.cert.Certificate;
-
 
 @RedisHash
 @AllArgsConstructor

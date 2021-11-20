@@ -11,21 +11,20 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class DiaryService {
+public class DiaryServiceImpl implements DiaryService{
 
     private final DiaryRepository diaryRepository;
 
     //글쓰기
-    
+    @Override
     @Transactional
-    public String create(DiaryRequest request){
+    public void create(DiaryRequest request){
         DiaryEntity diaryEntity = DiaryEntity.builder()
                 .title(request.getTitle())
                 .weather(request.getWeather())
                 .contents(request.getContents())
                 .build();
         diaryRepository.save(diaryEntity);
-        return "글쓰기 성공";
     }
 
     //리스트
@@ -35,18 +34,18 @@ public class DiaryService {
 
     //수정
     @Transactional
-    public String update(Long diaryPk, DiaryRequest request){
+    @Override
+    public void update(Long diaryPk, DiaryRequest request){
 
         DiaryEntity diaryEntity = diaryRepository.findById(diaryPk).get();
         diaryEntity.setTitle(request.getTitle());
         diaryEntity.setWeather(request.getWeather());
         diaryEntity.setContents(request.getContents());
-
-        return "수정 성공";
     }
 
     //삭제
     @Transactional
+    @Override
     public void delete(Long diaryPk){
         diaryRepository.deleteById(diaryPk);
     }

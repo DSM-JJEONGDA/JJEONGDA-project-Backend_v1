@@ -5,6 +5,7 @@ import com.example.loginpractice.entity.certification.CertificationRepository;
 import com.example.loginpractice.entity.certification.Certified;
 import com.example.loginpractice.entity.refreshToken.RefreshToken;
 import com.example.loginpractice.entity.refreshToken.RefreshTokenRepository;
+import com.example.loginpractice.entity.user.Role;
 import com.example.loginpractice.entity.user.User;
 import com.example.loginpractice.entity.user.UserRepository;
 import com.example.loginpractice.exception.*;
@@ -36,7 +37,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public void sendEmail(EmailRequest request){
-        if(userRepository.findByEmail(request.getEmail()).isPresent())
+        if(userRepository.findByName(request.getEmail()).isPresent())
             throw new SendMessageFailedException();
 
         mailService.sendEmail(request.getEmail());
@@ -54,7 +55,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     @Transactional
     public void register(RegisterRequest request) {
-        if (userRepository.findByEmail(request.getName()).isPresent())
+        if (userRepository.findByName(request.getName()).isPresent())
             throw new UserNameAlreadyExistsException();
 
         Certification certification = certificationRepository.findByEmail(request.getEmail())
@@ -65,6 +66,7 @@ public class AuthServiceImpl implements AuthService {
                     .name(request.getName())
                     .email(request.getEmail())
                     .password(passwordEncoder.encode(request.getPassword()))
+                    .role(Role.ROLE_USER)
                     .build());
         } else throw new EmailNotCertifiedException();
     }
@@ -72,7 +74,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     @Transactional
     public TokenResponse login(LoginRequest request){
-        User user = userRepository.findByEmail(request.getEmail())
+        User user = userRepository.findByName(request.getEmail())
                 .orElseThrow(UserNotFoundException::new);
 
         if(!passwordEncoder.matches(request.getPassword(), user.getPassword()))

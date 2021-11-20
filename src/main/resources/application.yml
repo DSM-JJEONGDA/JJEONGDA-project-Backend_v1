@@ -19,6 +19,7 @@ spring:
       ddl-auto: create-drop
     show-sql: true
 
+
   mail:
     host: smtp.gmail.com
     port: 587
@@ -41,5 +42,41 @@ spring:
 code:
   exp: ${EXP}
 
+jwt.secret:
+  ${secret}
 
+code.exp:
+  ${exp}
 
+MySQL_URL:
+  ${url}
+
+MySQL_PASSWORD:
+  ${password}
+
+MySQL_USERNAME:
+  ${username}
+
+MAIL_USERNAME:
+  ${mailname}
+
+MAIL_PASSWORD:
+  ${mailpw}
+
+REDIS_PORT:
+  ${port}
+
+REDIS_HOST:
+  ${host}
+
+spring.redis.port:
+  ${redisport}
+
+spring.redis.host:
+  ${redishost}
+
+jwt.prefix:
+  ${prefix}
+
+jwt.header:
+  ${header}

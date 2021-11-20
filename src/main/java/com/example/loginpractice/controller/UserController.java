@@ -17,6 +17,7 @@ public class UserController {
 
     private final AuthService authService;
 
+
     //email 전송
     @PostMapping("/send")
     public void sendEmail(@Valid @RequestBody EmailRequest request) {
