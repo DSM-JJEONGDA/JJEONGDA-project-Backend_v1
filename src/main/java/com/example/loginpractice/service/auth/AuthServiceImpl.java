@@ -37,7 +37,7 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public void sendEmail(EmailRequest request){
-        if(userRepository.findByName(request.getEmail()).isPresent())
+        if(userRepository.findByEmail(request.getEmail()).isPresent())
             throw new SendMessageFailedException();
 
         mailService.sendEmail(request.getEmail());
@@ -55,8 +55,8 @@ public class AuthServiceImpl implements AuthService {
     @Override
     @Transactional
     public void register(RegisterRequest request) {
-        if (userRepository.findByName(request.getName()).isPresent())
-            throw new UserNameAlreadyExistsException();
+        if (userRepository.findByEmail(request.getName()).isPresent())
+            throw UserNameAlreadyExistsException.EXCEPTION;
 
         Certification certification = certificationRepository.findByEmail(request.getEmail())
                 .orElseThrow(CodeAlreadyExpiredException::new);
@@ -68,17 +68,17 @@ public class AuthServiceImpl implements AuthService {
                     .password(passwordEncoder.encode(request.getPassword()))
                     .role(Role.ROLE_USER)
                     .build());
-        } else throw new EmailNotCertifiedException();
+        } else throw EmailNotCertifiedException.EXCEPTION;
     }
 
     @Override
     @Transactional
     public TokenResponse login(LoginRequest request){
-        User user = userRepository.findByName(request.getEmail())
+        User user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(UserNotFoundException::new);
 
         if(!passwordEncoder.matches(request.getPassword(), user.getPassword()))
-            throw new InvalidPasswordException();
+            throw InvalidPasswordException.EXCEPTION;
 
         return createToken(request.getEmail());
     }
@@ -87,7 +87,7 @@ public class AuthServiceImpl implements AuthService {
     @Transactional
     public TokenResponse reissue(String refreshToken) {
         if(!tokenProvider.isRefreshToken(refreshToken)) {
-            throw new InvalidTokenException();
+            throw InvalidTokenException.EXCEPTION;
         }
 
         RefreshToken newRefreshToken = refreshTokenRepository.findByRefreshToken(refreshToken)
