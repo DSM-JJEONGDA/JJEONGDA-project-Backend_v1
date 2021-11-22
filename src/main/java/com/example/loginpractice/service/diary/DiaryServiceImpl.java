@@ -19,12 +19,13 @@ public class DiaryServiceImpl implements DiaryService{
     @Override
     @Transactional
     public void create(DiaryRequest request){
-        DiaryEntity diaryEntity = DiaryEntity.builder()
-                .title(request.getTitle())
-                .weather(request.getWeather())
-                .contents(request.getContents())
-                .build();
-        diaryRepository.save(diaryEntity);
+
+            DiaryEntity diaryEntity = DiaryEntity.builder()
+                    .title(request.getTitle())
+                    .weather(request.getWeather())
+                    .contents(request.getContents())
+                    .build();
+            diaryRepository.save(diaryEntity);
     }
 
     //리스트

@@ -21,6 +21,7 @@ public enum ErrorCode {
     USER_USERNAME_ALREADY_EXISTS(409, "User Already Exists"),
     INVALID_PASSWORD(401, "Invalid Password"),
 
+    //메일 인증
     EMAIL_NOT_CERTIFIED(401, "Email Not Certified"),
     SEND_MESSAGE_FAILED(500, "Send Message Failed"),
 
