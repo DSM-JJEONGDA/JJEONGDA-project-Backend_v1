@@ -67,24 +67,9 @@ public class JwtTokenProvider {
     // JWT 토큰 에서 인증 정보 조회
     public Authentication getAuthentication(String token){
         UserDetails userDetails = userDetailsService.loadUserByUsername(getUsername(token).getSubject());
-        return new UsernamePasswordAuthenticationToken(userDetails, userDetails.getUsername(), userDetails.getAuthorities());
+        return new UsernamePasswordAuthenticationToken(userDetails,"", userDetails.getAuthorities());
     }
 
-    //토큰에서 회원 정보 추출
-    public Claims getUsername(String token){
-        try{
-            return Jwts.parser()
-                    .setSigningKey(SECRET_KEY)
-                    .parseClaimsJws(token)
-                    .getBody();
-        } catch (MalformedJwtException | UnsupportedJwtException e) {
-            throw new IncorrectTokenException();
-        } catch (ExpiredJwtException e) {
-            throw new ExpiredAccessTokenException();
-        } catch (Exception e) {
-            throw new InvalidTokenException();
-        }
-    }
     //Request의 Header에서 token 값을 가져옵니다.
     public String resolveToken(HttpServletRequest request){
         String token = request.getHeader(HEADER);
@@ -95,11 +80,30 @@ public class JwtTokenProvider {
         return null;
     }
 
+    //토큰에서 회원 정보 추출
+    public Claims getUsername(String token){
+        try{
+            return Jwts.parser()
+                    .setSigningKey(SECRET_KEY)
+                    .parseClaimsJws(token)
+                    .getBody();
+        } catch (MalformedJwtException | UnsupportedJwtException e) {
+            throw IncorrectTokenException.EXCEPTION;
+        } catch (ExpiredJwtException e) {
+            throw ExpiredAccessTokenException.EXCEPTION;
+        } catch (Exception e) {
+            throw InvalidTokenException.EXCEPTION;
+        }
+    }
+
     //토큰의 유효성 + 만료일자 확인
     public boolean validateToken(String token) {
-        return !getUsername(token)
-                .getExpiration()
-                .before(new Date());
+        try {
+            String type = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody().get("type", String.class);
+            return type.equals("access");
+        } catch (Exception e) {
+            throw InvalidTokenException.EXCEPTION;
+        }
     }
 
     public boolean isRefreshToken(String refreshToken) {
@@ -111,11 +115,11 @@ public class JwtTokenProvider {
 
             return claims.get("type").equals("refresh") && claims.getExpiration().before(new Date());
         } catch (MalformedJwtException | UnsupportedJwtException e) {
-            throw new IncorrectTokenException();
+            throw IncorrectTokenException.EXCEPTION;
         } catch (ExpiredJwtException e) {
-            throw new ExpiredRefreshTokenException();
+            throw ExpiredRefreshTokenException.EXCEPTION;
         } catch (Exception e) {
-            throw new InvalidTokenException();
+            throw InvalidTokenException.EXCEPTION;
         }
     }
 }
