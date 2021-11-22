@@ -13,10 +13,9 @@ import javax.validation.Valid;
 
 @RequiredArgsConstructor
 @RestController
-public class UserController {
+public class AuthController {
 
     private final AuthService authService;
-
 
     //email 전송
     @PostMapping("/send")
