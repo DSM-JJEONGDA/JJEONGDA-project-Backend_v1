@@ -15,8 +15,9 @@ import java.io.Serializable;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@RedisHash
+@RedisHash(value = "refresh_token")
 public class RefreshToken implements Serializable {
+
     @Id
     private String username;
 
@@ -24,10 +25,10 @@ public class RefreshToken implements Serializable {
     private String refreshToken;
 
     @TimeToLive
-    private Long refreshTokenExpiration;
+    private Long refreshExpiration;
 
-    public RefreshToken update(Long refreshTokenExpiration){
-        this.refreshTokenExpiration = refreshTokenExpiration;
+    public RefreshToken update(Long refreshExp){
+        this.refreshExpiration = refreshExp;
         return this;
     }
 }
