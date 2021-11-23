@@ -108,7 +108,7 @@ public class AuthServiceImpl implements AuthService {
                 RefreshToken.builder()
                         .username(username)
                         .refreshToken(refreshToken)
-                        .refreshTokenExpiration(REFRESH_TOKEN_VALID_TIME)
+                        .refreshExpiration(REFRESH_TOKEN_VALID_TIME)
                         .build());
 
         return new TokenResponse(accessToken, refreshToken);
