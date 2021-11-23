@@ -6,6 +6,7 @@ import com.example.loginpractice.payload.request.LoginRequest;
 import com.example.loginpractice.payload.response.TokenResponse;
 import com.example.loginpractice.payload.request.RegisterRequest;
 import com.example.loginpractice.service.auth.AuthService;
+import io.swagger.annotations.ResponseHeader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -43,7 +44,7 @@ public class AuthController {
 
     //토큰 재발급
     @PutMapping("/reissue")
-    public TokenResponse reissue(@RequestHeader(name = "X-REFRESH-TOKEN") String token) {
+    public TokenResponse reissue(@RequestHeader (name = "X-REFRESH-TOKEN") String token) {
         return authService.reissue(token);
     }
 }
