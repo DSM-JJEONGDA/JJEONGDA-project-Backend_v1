@@ -24,6 +24,7 @@ public class DiaryServiceImpl implements DiaryService{
                     .title(request.getTitle())
                     .weather(request.getWeather())
                     .contents(request.getContents())
+                    .name(request.getName())
                     .build();
             diaryRepository.save(diaryEntity);
     }
