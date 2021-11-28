@@ -1,5 +1,5 @@
 package com.example.loginpractice.entity.user;
 
-public enum Role {
+public enum Authority {
     ROLE_USER
 }
