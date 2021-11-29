@@ -30,6 +30,8 @@ public class DiaryServiceImpl implements DiaryService{
     }
 
     //리스트
+    @Override
+    @Transactional
     public List<DiaryEntity> getAllDiary(){
         return diaryRepository.findAll();
     }
@@ -40,9 +42,11 @@ public class DiaryServiceImpl implements DiaryService{
     public void update(Long diaryPk, DiaryRequest request){
 
         DiaryEntity diaryEntity = diaryRepository.findById(diaryPk).get();
+        diaryEntity.setName(request.getName());
         diaryEntity.setTitle(request.getTitle());
         diaryEntity.setWeather(request.getWeather());
         diaryEntity.setContents(request.getContents());
+
     }
 
     //삭제
