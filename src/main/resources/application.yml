@@ -16,7 +16,7 @@ spring:
   jpa:
     hibernate:
       generate-ddl: true
-      ddl-auto: update
+      ddl-auto: create
     show-sql: true
 
 
@@ -34,3 +34,42 @@ spring:
           ssl:
             trust: smtp.gmail.com
             protocols: TLSv1.2
+
+jwt.secret:
+  ${secret}
+
+code.exp:
+  ${exp}
+
+MySQL_URL:
+  ${url}
+
+MySQL_PASSWORD:
+  ${password}
+
+MySQL_USERNAME:
+  ${username}
+
+MAIL_USERNAME:
+  ${mailname}
+
+MAIL_PASSWORD:
+  ${mailpw}
+
+REDIS_PORT:
+  ${port}
+
+REDIS_HOST:
+  ${host}
+
+spring.redis.port:
+  ${redisport}
+
+spring.redis.host:
+  ${redishost}
+
+jwt.prefix:
+  ${prefix}
+
+jwt.header:
+  ${header}
