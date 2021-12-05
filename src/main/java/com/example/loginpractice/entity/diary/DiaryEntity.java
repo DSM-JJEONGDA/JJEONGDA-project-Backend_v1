@@ -1,5 +1,6 @@
 package com.example.loginpractice.entity.diary;
 
+import com.example.loginpractice.entity.user.User;
 import lombok.*;
 
 import javax.persistence.*;
@@ -26,6 +27,8 @@ public class DiaryEntity {
     @Column(nullable = false, length = 200)
     private String contents;
 
-    @Column(nullable = false, length = 20)
-    private String name;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
 }
