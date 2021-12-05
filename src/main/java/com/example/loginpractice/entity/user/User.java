@@ -6,6 +6,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -20,7 +21,7 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(unique = true, nullable = false)
+    @Column(length = 20, nullable = false, unique = true)
     private String name;
 
     @Column(length = 100, nullable = false, unique = true)
@@ -29,13 +30,12 @@ public class User implements UserDetails {
     @Column(length = 200, nullable = false)
     private String password;
 
-    @Setter
     @Enumerated(EnumType.STRING)
     private Role role;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singleton(new SimpleGrantedAuthority(role.name()));
+       return Collections.singleton(new SimpleGrantedAuthority(role.name()));
     }
 
     @Override
