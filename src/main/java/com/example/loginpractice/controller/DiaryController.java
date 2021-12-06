@@ -23,8 +23,8 @@ public class DiaryController {
 
     //리스트
     @GetMapping("/list")
-    public List<DiaryEntity> getAllDiary(){
-        return diaryService.getAllDiary();
+    public List<DiaryEntity> getAllDiary(Integer id){
+        return diaryService.getAllDiary(id);
     }
 
     //수정

@@ -28,24 +28,21 @@ public class DiaryServiceImpl implements DiaryService{
                     .build();
             diaryRepository.save(diaryEntity);
     }
-
+    
     //리스트
-    @Override
     @Transactional
-    public List<DiaryEntity> getAllDiary(){
-        return diaryRepository.findAll();
+    @Override
+    public List<DiaryEntity> getAllDiary(Integer id){
+        return diaryRepository.findAllById(id);
     }
-
     //수정
     @Transactional
     @Override
     public void update(Long diaryPk, DiaryRequest request){
-
         DiaryEntity diaryEntity = diaryRepository.findById(diaryPk).get();
         diaryEntity.setTitle(request.getTitle());
         diaryEntity.setWeather(request.getWeather());
         diaryEntity.setContents(request.getContents());
-
     }
 
     //삭제

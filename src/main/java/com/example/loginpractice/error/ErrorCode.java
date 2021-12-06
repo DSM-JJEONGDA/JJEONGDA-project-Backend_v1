@@ -26,7 +26,9 @@ public enum ErrorCode {
     SEND_MESSAGE_FAILED(500, "Send Message Failed"),
 
     CODE_NOT_CORRECT(401, "Code Not Correct"),
-    CODE_ALREADY_EXPIRED(401, "Code Already Expired");
+    CODE_ALREADY_EXPIRED(401, "Code Already Expired"),
+
+    POST_NOT_FOUND(404, "Post Not Found");
 
     private final int status;
     private final String message;

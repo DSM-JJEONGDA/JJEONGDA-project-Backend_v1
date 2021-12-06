@@ -4,6 +4,7 @@ import com.example.loginpractice.exception.ExpiredAccessTokenException;
 import com.example.loginpractice.exception.ExpiredRefreshTokenException;
 import com.example.loginpractice.exception.IncorrectTokenException;
 import com.example.loginpractice.exception.InvalidTokenException;
+import com.example.loginpractice.security.auth.CustomUserDetailService;
 import io.jsonwebtoken.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -36,7 +37,7 @@ public class JwtTokenProvider {
     private long ACCESS_TOKEN_VALID_TIME = 30 * 60 * 1000L; //30분
     private long REFRESH_TOKEN_VALID_TIME = 60 * 60 * 24 * 7 * 1000L; //1주
 
-    private final UserDetailsService userDetailsService;
+    private final CustomUserDetailService customUserDetailService;
 
     @Value("${jwt.secret}")
     protected String setSecretKey(){
@@ -66,7 +67,7 @@ public class JwtTokenProvider {
     }
     // JWT 토큰 에서 인증 정보 조회
     public Authentication getAuthentication(String token){
-        UserDetails userDetails = userDetailsService.loadUserByUsername(getUsername(token).getSubject());
+        UserDetails userDetails = customUserDetailService.loadUserByUsername(getUsername(token).getSubject());
         return new UsernamePasswordAuthenticationToken(userDetails,"", userDetails.getAuthorities());
     }
 

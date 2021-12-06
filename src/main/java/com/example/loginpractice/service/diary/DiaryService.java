@@ -9,5 +9,5 @@ public interface DiaryService {
     void create(DiaryRequest request);
     void update(Long id, DiaryRequest request);
     void delete(Long id);
-    List<DiaryEntity> getAllDiary();
+    List<DiaryEntity> getAllDiary(Integer id);
 }
