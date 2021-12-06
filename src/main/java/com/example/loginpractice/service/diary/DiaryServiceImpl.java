@@ -1,5 +1,6 @@
 package com.example.loginpractice.service.diary;
 
+import com.example.loginpractice.facade.UserFacade;
 import com.example.loginpractice.payload.request.DiaryRequest;
 import com.example.loginpractice.entity.diary.DiaryEntity;
 import com.example.loginpractice.entity.diary.DiaryRepository;
@@ -19,12 +20,11 @@ public class DiaryServiceImpl implements DiaryService{
     @Override
     @Transactional
     public void create(DiaryRequest request){
-
             DiaryEntity diaryEntity = DiaryEntity.builder()
                     .title(request.getTitle())
                     .weather(request.getWeather())
                     .contents(request.getContents())
-                    .name(request.getName())
+                    .user(UserFacade.getUser())
                     .build();
             diaryRepository.save(diaryEntity);
     }
@@ -42,7 +42,6 @@ public class DiaryServiceImpl implements DiaryService{
     public void update(Long diaryPk, DiaryRequest request){
 
         DiaryEntity diaryEntity = diaryRepository.findById(diaryPk).get();
-        diaryEntity.setName(request.getName());
         diaryEntity.setTitle(request.getTitle());
         diaryEntity.setWeather(request.getWeather());
         diaryEntity.setContents(request.getContents());
