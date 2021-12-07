@@ -1,6 +1,5 @@
 package com.example.loginpractice.config;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
@@ -13,11 +12,9 @@ import org.springframework.data.redis.repository.configuration.EnableRedisReposi
 @EnableRedisRepositories
 public class RedisConfig {
 
-    @Value("${spring.redis.host}")
-    private String REDIS_HOST;
+    private String REDIS_HOST = "localhost";
 
-    @Value("${spring.redis.port}")
-    private int REDIS_PORT;
+    private int REDIS_PORT = 6379;
 
     @Bean
     public RedisConnectionFactory redisConnectionFactory(){

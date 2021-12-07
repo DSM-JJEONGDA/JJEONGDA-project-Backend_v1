@@ -24,14 +24,11 @@ import java.util.Date;
 @Component
 public class JwtTokenProvider {
 
-    @Value("${jwt.secret}")
-    private String SECRET_KEY;
+    private String SECRET_KEY = "amVvbmd5b29u";
 
-    @Value("${jwt.header}")
-    private String HEADER;
+    private String HEADER = "Authorization";
 
-    @Value("${jwt.prefix}")
-    private String PREFIX;
+    private String PREFIX = "Bearer";
 
     //토큰 유효기간
     private long ACCESS_TOKEN_VALID_TIME = 30 * 60 * 1000L; //30분
@@ -39,7 +36,6 @@ public class JwtTokenProvider {
 
     private final CustomUserDetailService customUserDetailService;
 
-    @Value("${jwt.secret}")
     protected String setSecretKey(){
         return Base64.getEncoder().encodeToString(SECRET_KEY.getBytes(StandardCharsets.UTF_8));
     }

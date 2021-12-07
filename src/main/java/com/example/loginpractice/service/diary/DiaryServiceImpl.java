@@ -68,6 +68,7 @@ public class DiaryServiceImpl implements DiaryService{
 
     private boolean checkMine(Integer id) {
         Integer userId = UserFacade.getUserId();
+
             return diaryRepository.findById(id)
                     .filter(u -> userId != null)
                     .map(diary -> diary.getUser().getId().equals(userId))

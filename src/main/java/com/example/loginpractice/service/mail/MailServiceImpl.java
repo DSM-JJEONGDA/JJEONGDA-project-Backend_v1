@@ -19,8 +19,7 @@ import javax.transaction.Transactional;
 @RequiredArgsConstructor
 public class MailServiceImpl implements MailService {
 
-    @Value("${code.exp}")
-    private Integer CODE_EXP;
+    private Integer CODE_EXP = 1800000;
 
     private final JavaMailSender javaMailSender;
     private final CertificationRepository certificationRepository;
