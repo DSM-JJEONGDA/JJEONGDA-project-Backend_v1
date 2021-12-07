@@ -1,13 +1,13 @@
 package com.example.loginpractice.service.diary;
 
-import com.example.loginpractice.entity.diary.DiaryEntity;
 import com.example.loginpractice.payload.request.DiaryRequest;
-
-import java.util.List;
+import com.example.loginpractice.payload.response.DiaryResponse;
+import com.example.loginpractice.payload.response.DiaryResultResponse;
+import org.springframework.data.domain.Pageable;
 
 public interface DiaryService {
     void create(DiaryRequest request);
-    void update(Long id, DiaryRequest request);
-    void delete(Long id);
-    List<DiaryEntity> getAllDiary(Integer id);
+    void update(Integer id, DiaryRequest request);
+    void delete(Integer id);
+    DiaryResponse getAllDiary(Integer id);
 }

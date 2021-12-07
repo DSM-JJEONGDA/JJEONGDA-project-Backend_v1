@@ -1,14 +1,15 @@
 package com.example.loginpractice.service.diary;
 
+import com.example.loginpractice.exception.PostNotFoundException;
 import com.example.loginpractice.facade.UserFacade;
 import com.example.loginpractice.payload.request.DiaryRequest;
 import com.example.loginpractice.entity.diary.DiaryEntity;
 import com.example.loginpractice.entity.diary.DiaryRepository;
+import com.example.loginpractice.payload.response.DiaryResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -20,35 +21,56 @@ public class DiaryServiceImpl implements DiaryService{
     @Override
     @Transactional
     public void create(DiaryRequest request){
-            DiaryEntity diaryEntity = DiaryEntity.builder()
-                    .title(request.getTitle())
-                    .weather(request.getWeather())
-                    .contents(request.getContents())
-                    .user(UserFacade.getUser())
-                    .build();
-            diaryRepository.save(diaryEntity);
+        DiaryEntity diaryEntity = diaryRepository.save(DiaryEntity.builder()
+                .title(request.getTitle())
+                .weather(request.getWeather())
+                .contents(request.getContents())
+                .user(UserFacade.getUser())
+                .build());
     }
-    
+
     //리스트
-    @Transactional
     @Override
-    public List<DiaryEntity> getAllDiary(Integer id){
-        return diaryRepository.findAllById(id);
+    @Transactional
+    public DiaryResponse getAllDiary(Integer id) {
+        return diaryRepository.findById(id)
+                .map(diaryEntity -> {
+                    DiaryResponse response = DiaryResponse.builder()
+                            .title(diaryEntity.getTitle())
+                            .contents(diaryEntity.getContents())
+                            .weather(diaryEntity.getWeather())
+                            .isMine(checkMine(id))
+                            .build();
+                    return response;
+                })
+                .orElseThrow(PostNotFoundException::new);
     }
+
     //수정
     @Transactional
     @Override
-    public void update(Long diaryPk, DiaryRequest request){
-        DiaryEntity diaryEntity = diaryRepository.findById(diaryPk).get();
-        diaryEntity.setTitle(request.getTitle());
-        diaryEntity.setWeather(request.getWeather());
-        diaryEntity.setContents(request.getContents());
+    public void update(Integer id, DiaryRequest request) {
+        DiaryEntity diaryEntity = diaryRepository.findById(id)
+                .map(newDiaryEntity -> newDiaryEntity.updateDiary(
+                        request.getContents(),
+                        request.getTitle(),
+                        request.getWeather()
+                ))
+                .orElseThrow(PostNotFoundException::new);
     }
 
     //삭제
     @Transactional
     @Override
-    public void delete(Long diaryPk){
-        diaryRepository.deleteById(diaryPk);
+    public void delete(Integer id){
+        diaryRepository.deleteById(id);
     }
+
+    private boolean checkMine(Integer id) {
+        Integer userId = UserFacade.getUserId();
+            return diaryRepository.findById(id)
+                    .filter(u -> userId != null)
+                    .map(diary -> diary.getUser().getId().equals(userId))
+                    .isPresent();
+        }
 }

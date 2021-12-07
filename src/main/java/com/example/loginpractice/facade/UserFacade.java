@@ -15,4 +15,12 @@ public class UserFacade {
 
         return (User) authentication.getPrincipal();
     }
+
+    public static Integer getUserId() {
+        if (getUser() == null) {
+            return null;
+        }
+
+        return getUser().getId();
+    }
 }

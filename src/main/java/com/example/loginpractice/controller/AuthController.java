@@ -6,7 +6,6 @@ import com.example.loginpractice.payload.request.LoginRequest;
 import com.example.loginpractice.payload.response.TokenResponse;
 import com.example.loginpractice.payload.request.RegisterRequest;
 import com.example.loginpractice.service.auth.AuthService;
-import io.swagger.annotations.ResponseHeader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

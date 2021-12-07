@@ -1,13 +1,14 @@
 package com.example.loginpractice.controller;
 
 import com.example.loginpractice.payload.request.DiaryRequest;
-import com.example.loginpractice.entity.diary.DiaryEntity;
+import com.example.loginpractice.payload.response.DiaryResponse;
+import com.example.loginpractice.payload.response.DiaryResultResponse;
 import com.example.loginpractice.service.diary.DiaryServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -23,19 +24,19 @@ public class DiaryController {
 
     //리스트
     @GetMapping("/list")
-    public List<DiaryEntity> getAllDiary(Integer id){
+    public DiaryResponse getAllDiary(Integer id){
         return diaryService.getAllDiary(id);
     }
 
     //수정
-    @PatchMapping("/update/{diaryPk}")
-    public void update(@Valid @PathVariable Long diaryPk,@Valid @RequestBody DiaryRequest request) {
-        diaryService.update(diaryPk, request);
+    @PatchMapping("/update/{id}")
+    public void update(@Valid @PathVariable Integer id,@Valid @RequestBody DiaryRequest request) {
+        diaryService.update(id, request);
     }
 
     //삭제
-    @DeleteMapping("/delete/{diaryPk}")
-    public void delete(@Valid @PathVariable Long diaryPk){
-        diaryService.delete(diaryPk);
+    @DeleteMapping("/delete/{id}")
+    public void delete(@Valid @PathVariable Integer id){
+        diaryService.delete(id);
     }
 }

@@ -9,14 +9,13 @@ import javax.persistence.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Setter
 @Getter
 @Table(name = "diary")
 public class DiaryEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Integer id;
 
     @Column(nullable = false, length = 20)
     private String title;
@@ -31,4 +30,10 @@ public class DiaryEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
+    public DiaryEntity updateDiary(String title, String contents, String weather){
+        this.contents = contents;
+        this.title = title;
+        this.weather = weather;
+        return this;
+    }
 }
