@@ -1,5 +1,6 @@
 package com.example.loginpractice.controller;
 
+import com.example.loginpractice.entity.diary.DiaryEntity;
 import com.example.loginpractice.payload.request.DiaryRequest;
 import com.example.loginpractice.payload.response.DiaryResponse;
 import com.example.loginpractice.service.diary.DiaryServiceImpl;
@@ -22,9 +23,9 @@ public class DiaryController {
     }
 
     //리스트
-    @GetMapping("/list/{id}")
-    public List<DiaryResponse> getAllDiary(@PathVariable Integer id){
-        return diaryService.getAllDiary(id);
+    @GetMapping("/list")
+    public List<DiaryEntity> getAllDiary(){
+        return diaryService.getAllDiary();
     }
 
     //수정
