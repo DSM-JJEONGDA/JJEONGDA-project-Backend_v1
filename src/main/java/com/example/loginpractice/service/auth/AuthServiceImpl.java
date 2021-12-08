@@ -35,7 +35,7 @@ public class AuthServiceImpl implements AuthService {
     private final CertificationRepository certificationRepository;
     private final JwtTokenProvider tokenProvider;
     private final RefreshTokenRepository refreshTokenRepository;
-
+/*
     @Override
     public void sendEmail(EmailRequest request){
         if(userRepository.findByEmail(request.getEmail()).isPresent())
@@ -52,24 +52,24 @@ public class AuthServiceImpl implements AuthService {
                 .map(certification -> certificationRepository.save(certification.updateCertified(Certified.CERTIFIED)))
                 .orElseThrow(CodeNotCorrectException::new);
     }
-
+*/
     @Override
     @Transactional
     public void register(RegisterRequest request) {
         if (userRepository.findByEmail(request.getName()).isPresent())
             throw UserNameAlreadyExistsException.EXCEPTION;
-
-        Certification certification = certificationRepository.findByEmail(request.getEmail())
+       /* Certification certification = certificationRepository.findByEmail(request.getEmail())
                 .orElseThrow(CodeAlreadyExpiredException::new);
 
-        if (certification.getCertified() == (Certified.CERTIFIED)) {
+        if (certification.getCertified() == (Certified.CERTIFIED)) {*/
+        {
             userRepository.save(User.builder()
                     .name(request.getName())
                     .email(request.getEmail())
                     .password(passwordEncoder.encode(request.getPassword()))
                     .role(Role.ROLE_USER)
                     .build());
-        } else throw EmailNotCertifiedException.EXCEPTION;
+        } //throw EmailNotCertifiedException.EXCEPTION;
     }
 
     @Override

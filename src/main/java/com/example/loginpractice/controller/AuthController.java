@@ -16,7 +16,7 @@ import javax.validation.Valid;
 public class AuthController {
 
     private final AuthService authService;
-
+/*
     //email 전송
     @PostMapping("/send")
     public void sendEmail(@Valid @RequestBody EmailRequest request) {
@@ -28,7 +28,7 @@ public class AuthController {
     public void verifyAccount(@Valid @RequestBody EmailVerifiedRequest request) {
         authService.verifyAccount(request);
     }
-
+*/
     //회원가입
     @PostMapping("/register")
     public void register(@RequestBody @Valid RegisterRequest request) {

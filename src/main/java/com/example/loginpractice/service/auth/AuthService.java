@@ -7,9 +7,10 @@ import com.example.loginpractice.payload.request.RegisterRequest;
 import com.example.loginpractice.payload.response.TokenResponse;
 
 public interface AuthService {
+
     void register(RegisterRequest request);
-    void sendEmail(EmailRequest request);
-    void verifyAccount(EmailVerifiedRequest request);
+    //void sendEmail(EmailRequest request);
+    //void verifyAccount(EmailVerifiedRequest request);
     TokenResponse login(LoginRequest request);
     TokenResponse reissue(String token);
 }

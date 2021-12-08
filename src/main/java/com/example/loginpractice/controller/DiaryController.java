@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,8 +22,8 @@ public class DiaryController {
     }
 
     //리스트
-    @GetMapping("/list")
-    public DiaryResponse getAllDiary(Integer id){
+    @GetMapping("/list/{id}")
+    public List<DiaryResponse> getAllDiary(@PathVariable Integer id){
         return diaryService.getAllDiary(id);
     }
 
