@@ -62,14 +62,13 @@ public class AuthServiceImpl implements AuthService {
                 .orElseThrow(CodeAlreadyExpiredException::new);
 
         if (certification.getCertified() == (Certified.CERTIFIED)) {*/
-        {
-            userRepository.save(User.builder()
+        userRepository.save(User.builder()
                     .name(request.getName())
                     .email(request.getEmail())
                     .password(passwordEncoder.encode(request.getPassword()))
                     .role(Role.ROLE_USER)
                     .build());
-        } //throw EmailNotCertifiedException.EXCEPTION;
+         //throw EmailNotCertifiedException.EXCEPTION;
     }
 
     @Override
