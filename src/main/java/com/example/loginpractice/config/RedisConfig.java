@@ -12,7 +12,7 @@ import org.springframework.data.redis.repository.configuration.EnableRedisReposi
 @EnableRedisRepositories
 public class RedisConfig {
 
-    private String REDIS_HOST = "192.168.99.100 ";
+    private String REDIS_HOST = "192.168.99.100";
 
     private int REDIS_PORT = 6379;
 
