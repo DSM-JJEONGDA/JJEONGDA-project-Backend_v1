@@ -1,7 +1,11 @@
 package com.example.loginpractice.entity.diary;
 
+import com.example.loginpractice.payload.response.DiaryResponse;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface DiaryRepository extends JpaRepository<DiaryEntity, Integer> {
+import java.util.List;
 
+public interface DiaryRepository extends JpaRepository<DiaryEntity, Integer> {
+    List<DiaryResponse> findById(Integer id, Pageable pageable);
 }

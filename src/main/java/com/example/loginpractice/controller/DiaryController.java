@@ -5,6 +5,7 @@ import com.example.loginpractice.payload.request.DiaryRequest;
 import com.example.loginpractice.payload.response.DiaryResponse;
 import com.example.loginpractice.service.diary.DiaryServiceImpl;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -24,8 +25,8 @@ public class DiaryController {
 
     //리스트
     @GetMapping("/list")
-    public List<DiaryEntity> getAllDiary(){
-        return diaryService.getAllDiary();
+    public List<DiaryResponse> getEachDiary(Integer id, Pageable pageable){
+        return diaryService.getEachDiary(id, pageable);
     }
 
     //수정

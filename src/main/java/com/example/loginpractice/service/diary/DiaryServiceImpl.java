@@ -7,6 +7,7 @@ import com.example.loginpractice.facade.UserFacade;
 import com.example.loginpractice.payload.request.DiaryRequest;
 import com.example.loginpractice.payload.response.DiaryResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -17,7 +18,6 @@ import java.util.List;
 public class DiaryServiceImpl implements DiaryService {
 
     private final DiaryRepository diaryRepository;
-
     //글쓰기
     @Override
     @Transactional
@@ -32,26 +32,11 @@ public class DiaryServiceImpl implements DiaryService {
 
     //리스트
 
-    /*@Override
-    @Transactional
-    public DiaryResponse getAllDiary(Integer id) {
-        return diaryRepository.findById(id)
-                .map(diaryEntity -> {
-                    DiaryResponse response = DiaryResponse.builder()
-                            .title(diaryEntity.getTitle())
-                            .contents(diaryEntity.getContents())
-                            .weather(diaryEntity.getWeather())
-                            .isMine(checkMine(id))
-                            .build();
-                    return response;
-                })
-                .orElseThrow(() -> PostNotFoundException.EXCEPTION);
-    }
-    */
     @Override
     @Transactional
-    public List<DiaryEntity> getAllDiary(){
-        return diaryRepository.findAll();
+    public List<DiaryResponse> getEachDiary(Integer id, Pageable pageable) {
+        UserFacade.getUser();
+        return diaryRepository.findById(id, pageable);
     }
 
     //수정

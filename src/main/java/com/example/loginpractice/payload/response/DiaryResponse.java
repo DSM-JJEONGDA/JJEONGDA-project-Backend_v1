@@ -1,6 +1,7 @@
 package com.example.loginpractice.payload.response;
 
 import com.example.loginpractice.entity.user.User;
+import com.example.loginpractice.facade.UserFacade;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,4 +15,6 @@ public class DiaryResponse {
     private String title;
     private String weather;
     private String contents;
+
+    private UserFacade userFacade;
 }

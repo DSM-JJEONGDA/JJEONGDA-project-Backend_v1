@@ -21,6 +21,6 @@ public class RegisterRequest {
     private String email;
 
     @NotBlank
-    @Size(min = 8, max = 16, message = "비밀번호는 최소 8글자 이상 최대 16글자 이하여야 합니다.")
+    @Size(min = 6, max = 16, message = "비밀번호는 최소 6글자 이상 최대 16글자 이하여야 합니다.")
     private String password;
 }
