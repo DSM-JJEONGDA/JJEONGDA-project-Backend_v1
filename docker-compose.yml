@@ -2,7 +2,7 @@ version: '3.7'
 
 services:
   application:
-    image: dlwjddbs14/redis
+    image: dlwjddbs14/jjeongda
     build: .
     links:
       - redis
