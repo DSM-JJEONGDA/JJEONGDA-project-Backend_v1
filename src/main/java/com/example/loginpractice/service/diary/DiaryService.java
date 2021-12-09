@@ -12,4 +12,5 @@ public interface DiaryService {
     void update(Integer id, DiaryRequest request);
     void delete(Integer id);
     List<DiaryResponse> getEachDiary(Integer id, Pageable pageable);
+    DiaryResponse getDiary(Integer id);
 }

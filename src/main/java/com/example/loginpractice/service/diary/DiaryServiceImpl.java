@@ -30,8 +30,24 @@ public class DiaryServiceImpl implements DiaryService {
                 .build());
     }
 
-    //리스트
+    @Override
+    @Transactional
+    public DiaryResponse getDiary(Integer id){
+        return diaryRepository.findById(id)
+                .map(diaryEntity -> {
+                    DiaryResponse response = DiaryResponse.builder()
+                            .id(diaryEntity.getId())
+                            .title(diaryEntity.getTitle())
+                            .weather(diaryEntity.getWeather())
+                            .contents(diaryEntity.getContents())
+                            .build();
+                    return response;
+                })
+                .orElseThrow(() -> PostNotFoundException.EXCEPTION);
 
+    }
+
+    //리스트
     @Override
     @Transactional
     public List<DiaryResponse> getEachDiary(Integer id, Pageable pageable) {

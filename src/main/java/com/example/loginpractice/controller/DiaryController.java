@@ -29,6 +29,11 @@ public class DiaryController {
         return diaryService.getEachDiary(id, pageable);
     }
 
+    @GetMapping("/get/{id}")
+    public DiaryResponse getDiary(@PathVariable Integer id){
+        return diaryService.getDiary(id);
+    }
+
     //수정
     @PatchMapping("/update/{id}")
     public void update(@Valid @PathVariable Integer id,@Valid @RequestBody DiaryRequest request) {
@@ -40,4 +45,6 @@ public class DiaryController {
     public void delete(@Valid @PathVariable Integer id){
         diaryService.delete(id);
     }
+
+
 }

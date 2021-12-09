@@ -15,6 +15,4 @@ public class DiaryResponse {
     private String title;
     private String weather;
     private String contents;
-
-    private UserFacade userFacade;
 }
