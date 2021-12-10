@@ -10,6 +10,6 @@ public interface DiaryService {
     void create(DiaryRequest request);
     void update(Integer id, DiaryRequest request);
     void delete(Integer id);
-    DiaryResponseList getEachDiary(int user_id);
+    List<DiaryResponseList> getEachDiary(int userId);
     DiaryResponse getDiary(Integer id);
 }

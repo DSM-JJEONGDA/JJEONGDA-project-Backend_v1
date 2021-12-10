@@ -51,18 +51,19 @@ public class DiaryServiceImpl implements DiaryService {
     //리스트
     @Transactional
     @Override
-    public DiaryResponseList getEachDiary(int user_id) {
-        return diaryRepository.findById(user_id)
+    public List<DiaryResponseList> getEachDiary(int userId) {
+        return diaryRepository.findByUserId(userId)
+                .stream()
                 .map(diaryEntity -> {
                     DiaryResponseList responseList = DiaryResponseList.builder()
-                            .user_id(diaryEntity.getUser().getId())
+                            .userId(diaryEntity.getUser().getId())
                             .contents(diaryEntity.getContents())
                             .title(diaryEntity.getTitle())
                             .weather(diaryEntity.getWeather())
                             .build();
                     return responseList;
                 })
-                .orElseThrow(() -> PostNotFoundException.EXCEPTION);
+                .collect(Collectors.toList());
     }
 
     //수정

@@ -26,9 +26,9 @@ public class DiaryController {
     }
 
     //리스트
-    @GetMapping("/list/{user_id}")
-    public DiaryResponseList getEachDiary(@PathVariable int user_id){
-        return diaryService.getEachDiary(user_id);
+    @GetMapping("/list/{user-id}")
+    public List<DiaryResponseList> getEachDiary(@PathVariable(value = "user-id") int userId){
+        return diaryService.getEachDiary(userId);
     }
 
     @GetMapping("/get/{id}")
