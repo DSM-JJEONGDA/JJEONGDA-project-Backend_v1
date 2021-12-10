@@ -6,12 +6,14 @@ import com.example.loginpractice.exception.PostNotFoundException;
 import com.example.loginpractice.facade.UserFacade;
 import com.example.loginpractice.payload.request.DiaryRequest;
 import com.example.loginpractice.payload.response.DiaryResponse;
+import com.example.loginpractice.payload.response.DiaryResponseList;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -44,15 +46,23 @@ public class DiaryServiceImpl implements DiaryService {
                     return response;
                 })
                 .orElseThrow(() -> PostNotFoundException.EXCEPTION);
-
     }
 
     //리스트
-    @Override
     @Transactional
-    public List<DiaryResponse> getEachDiary(Integer id, Pageable pageable) {
-        UserFacade.getUser();
-        return diaryRepository.findById(id, pageable);
+    @Override
+    public DiaryResponseList getEachDiary(int user_id) {
+        return diaryRepository.findById(user_id)
+                .map(diaryEntity -> {
+                    DiaryResponseList responseList = DiaryResponseList.builder()
+                            .user_id(diaryEntity.getUser().getId())
+                            .contents(diaryEntity.getContents())
+                            .title(diaryEntity.getTitle())
+                            .weather(diaryEntity.getWeather())
+                            .build();
+                    return responseList;
+                })
+                .orElseThrow(() -> PostNotFoundException.EXCEPTION);
     }
 
     //수정
@@ -74,6 +84,7 @@ public class DiaryServiceImpl implements DiaryService {
     public void delete(Integer id) {
         diaryRepository.deleteById(id);
     }
+
 
     private boolean checkMine(Integer id) {
         Integer userId = UserFacade.getUserId();
